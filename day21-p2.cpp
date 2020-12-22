@@ -23,6 +23,9 @@ int nFoods;
 int nIngredients;
 int nAllergens;
 
+vector<string> ingredientsNames;
+vector<string> allergensNames;
+
 bool possible[MAX_INGREDIENTS][MAX_ALLERGENS];
 
 int main()
@@ -52,6 +55,9 @@ int main()
 			if(ingredientsMap.find(ingredient)==ingredientsMap.end()){
 				ingredientsMap.insert(make_pair(ingredient, nIngredients));
 				crtIngredient=nIngredients;
+				
+				ingredientsNames.push_back(ingredient);
+				
 				nIngredients++;
 			}
 			else{
@@ -84,6 +90,9 @@ int main()
 				if(allergensMap.find(allergen)==allergensMap.end()){
 					allergensMap.insert(make_pair(allergen, nAllergens));
 					crtAllergen=nAllergens;
+					
+					allergensNames.push_back(allergen);
+					
 					nAllergens++;
 				}
 				else{
@@ -105,6 +114,9 @@ int main()
 			if(allergensMap.find(allergen)==allergensMap.end()){
 				allergensMap.insert(make_pair(allergen, nAllergens));
 				crtAllergen=nAllergens;
+
+				allergensNames.push_back(allergen);
+
 				nAllergens++;
 			}
 			else{
@@ -162,6 +174,17 @@ int main()
 				cnt++;
 
 	cout<<"cnt="<<cnt<<endl;
+	
+	for(int i=0; i<nIngredients; i++)
+		if(possibleAllergenicIngredients.find(i)!=possibleAllergenicIngredients.end()){
+			cout<<"Ingredient: "<<ingredientsNames[i]<<endl;
+			
+			cout<<"  Possible allergens:";
+			for(int a=0; a<nAllergens; a++)
+				if(possible[i][a])
+					cout<<" "<<allergensNames[a];
+			cout<<endl;
+		}
 
 	return 0;
 }
